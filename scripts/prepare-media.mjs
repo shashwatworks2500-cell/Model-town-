@@ -20,8 +20,32 @@ import { execFile } from 'node:child_process';
 import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { promisify } from 'node:util';
-import ffmpegPath from 'ffmpeg-static';
-import sharp from 'sharp';
+
+/**
+ * ffmpeg and sharp are optional dependencies, not build dependencies.
+ *
+ * Everything this script produces is committed under public/media, so a deploy
+ * never runs it — and ffmpeg-static downloads a platform binary over the
+ * network during install, which is exactly the kind of thing that turns a
+ * deploy red for reasons that have nothing to do with the site.
+ */
+let ffmpegPath;
+let sharp;
+try {
+  ({ default: ffmpegPath } = await import('ffmpeg-static'));
+  ({ default: sharp } = await import('sharp'));
+} catch {
+  console.error(
+    [
+      'This pipeline needs ffmpeg-static and sharp, which are optional',
+      'dependencies so that deployments never have to install them.',
+      '',
+      '  npm install --include=optional',
+      '',
+    ].join('\n'),
+  );
+  process.exit(1);
+}
 
 const run = promisify(execFile);
 
