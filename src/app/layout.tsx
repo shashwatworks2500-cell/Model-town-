@@ -1,38 +1,36 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Newsreader } from "next/font/google";
+import { Instrument_Serif, Schibsted_Grotesk } from "next/font/google";
 
 import "./globals.css";
 import { site } from "@/lib/content";
 import { siteUrl } from "@/lib/site-url";
 
 /**
- * Two voices.
+ * One typeface carries the site.
  *
- * Archivo is the architectural one — a grotesque with enough width axis to be
- * set tight and large without turning into a poster face. It carries headlines,
- * labels and every piece of interface text.
+ * Schibsted Grotesk is narrow enough to hold a 13rem headline without the
+ * letters splaying apart, and has enough vertical stress to read as
+ * architectural rather than as a system font. It does display, interface and
+ * body — the width of the scale does the work that a second sans would.
  *
- * Newsreader is the human one, used only for the reflective lines. Keeping the
- * serif in the minority is what stops the page from reading as another
- * cream-and-serif property brochure.
+ * Instrument Serif appears exactly twice in the whole site, where the page
+ * needs to sound like a person instead of a plan. Any more than that and it
+ * becomes the identity, which is the opposite of the intent.
  */
-const archivo = Archivo({
+const schibsted = Schibsted_Grotesk({
   subsets: ["latin"],
-  variable: "--font-archivo",
+  variable: "--font-schibsted",
   display: "swap",
-  axes: ["wdth"],
+  weight: ["400", "500"],
   preload: true,
 });
 
-const newsreader = Newsreader({
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
-  variable: "--font-newsreader",
+  variable: "--font-instrument-serif",
   display: "swap",
-  // One variable file rather than four static cuts. Nothing on the page is set
-  // in italic, and the optical-size axis is what makes the serif hold up at the
-  // large sizes the reflective lines are set in.
-  axes: ["opsz"],
-  preload: true,
+  weight: "400",
+  preload: false,
 });
 
 const url = siteUrl();
@@ -72,11 +70,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f0e8" },
-    { media: "(prefers-color-scheme: dark)", color: "#17150f" },
-  ],
-  colorScheme: "light",
+  themeColor: "#0c0c0b",
+  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
   // Never block pinch zoom.
@@ -93,7 +88,7 @@ const structuredData = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${archivo.variable} ${newsreader.variable} no-js`}>
+    <html lang="en" className={`${schibsted.variable} ${instrumentSerif.variable} no-js`}>
       <head>
         {/* The hero's first frames are the largest contentful paint; start them
             before the bundle has finished parsing. */}
