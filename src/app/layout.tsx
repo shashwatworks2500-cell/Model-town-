@@ -3,6 +3,7 @@ import { Archivo, Newsreader } from "next/font/google";
 
 import "./globals.css";
 import { site } from "@/lib/content";
+import { siteUrl } from "@/lib/site-url";
 
 /**
  * Two voices.
@@ -34,10 +35,10 @@ const newsreader = Newsreader({
   preload: true,
 });
 
-const url = process.env.NEXT_PUBLIC_SITE_URL ?? "https://model-town.example";
+const url = siteUrl();
 
 export const metadata: Metadata = {
-  metadataBase: new URL(url),
+  metadataBase: url,
   title: {
     default: `${site.name} — ${site.tagline}`,
     template: `%s — ${site.name}`,
@@ -87,7 +88,7 @@ const structuredData = {
   "@type": "WebSite",
   name: site.name,
   description: site.description,
-  url,
+  url: url.toString(),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

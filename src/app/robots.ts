@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 
-const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://model-town.example";
+import { siteOrigin } from "@/lib/site-url";
+
+const base = siteOrigin();
 
 export default function robots(): MetadataRoute.Robots {
   return {
