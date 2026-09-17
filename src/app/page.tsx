@@ -5,27 +5,29 @@ import { Cursor } from "@/components/cursor/Cursor";
 import { EnquiryProvider } from "@/components/enquiry/EnquiryContext";
 import { EnquiryPanel } from "@/components/enquiry/EnquiryPanel";
 import { Gallery } from "@/components/gallery/Gallery";
+import { Idea } from "@/components/sections/Idea";
 import { Arrival } from "@/components/sections/Arrival";
-import { Overview } from "@/components/sections/Overview";
-import { SitePlan } from "@/components/sections/SitePlan";
+import { Breathe } from "@/components/sections/Breathe";
+import { Slow } from "@/components/sections/Slow";
+import { Home } from "@/components/sections/Home";
 import { Architecture } from "@/components/sections/Architecture";
-import { FullBleed } from "@/components/sections/FullBleed";
-import { Rhythm } from "@/components/sections/Rhythm";
-import { Community } from "@/components/sections/Community";
-import { Location } from "@/components/sections/Location";
-import { FinalCta } from "@/components/sections/FinalCta";
+import { Plan } from "@/components/sections/Plan";
+import { Address } from "@/components/sections/Address";
+import { Close } from "@/components/sections/Close";
 import { SiteFooter } from "@/components/sections/SiteFooter";
-import { interior, leisure } from "@/lib/content";
 
 /**
- * The page, in the order the story is told:
+ * The page, and its rhythm.
  *
- *   the land → the vision → the drawing → the architecture → the residence
- *   → the day → the ground → the pause → the record → the address → enquire
+ * Surface alternates charcoal and bone the whole way down, and so does the kind
+ * of attention each section asks for. The order is not a list of topics — it is
+ * a sequence of tempos:
  *
- * Surface alternates deliberately down the page — paper, ink, paper, full
- * bleed — and so does the axis of motion, so no two neighbouring sections ask
- * to be read the same way.
+ *   film · stillness · read · look · stop · enter · read sideways · study ·
+ *   browse · facts · close
+ *
+ * `data-surface` is what the header reads to invert itself against whatever is
+ * passing beneath it.
  */
 export default function HomePage() {
   return (
@@ -36,42 +38,53 @@ export default function HomePage() {
 
       <div id="site-root">
         <main>
-          <Hero />
-          <Arrival />
-          <Overview />
-          <SitePlan />
-          <Architecture />
+          {/* The film. Six screens of it. */}
+          <div data-surface="dark">
+            <Hero />
+          </div>
 
-          <FullBleed
-            mediaId="interior"
-            alt="A living room opening onto a kitchen, lit warmly from one side."
-            mark={interior.mark}
-            heading={interior.heading}
-            body={interior.body}
-            caption={interior.caption}
-            position="center 45%"
-          />
+          {/* Stop moving. One statement in an empty field. */}
+          <div data-surface="dark">
+            <Idea />
+          </div>
 
-          <Rhythm />
-          <Community />
+          {/* Light. Type left, plate right, out of alignment. */}
+          <div data-surface="light">
+            <Arrival />
+            <Breathe />
+          </div>
 
-          <FullBleed
-            mediaId="leisure"
-            alt="A person resting at the edge of a pool, looking out over a coastline at dusk."
-            mark={leisure.mark}
-            heading={leisure.heading}
-            body={leisure.body}
-            caption={leisure.caption}
-            align="end"
-            position="center 30%"
-          />
+          {/* Dark, full height, almost silent. */}
+          <div data-surface="dark">
+            <Slow />
+          </div>
 
-          <Gallery />
-          <Location />
-          <FinalCta />
+          {/* Light again — the room opens as you pass it. */}
+          <div data-surface="light">
+            <Home />
+            <Architecture />
+          </div>
+
+          {/* Dark: the drawing, then the record. */}
+          <div data-surface="dark">
+            <Plan />
+            <Gallery />
+          </div>
+
+          {/* The facts, such as they are. */}
+          <div data-surface="light">
+            <Address />
+          </div>
+
+          {/* Closing frame. */}
+          <div data-surface="dark">
+            <Close />
+          </div>
         </main>
 
-        <SiteFooter />
+        <div data-surface="dark">
+          <SiteFooter />
+        </div>
       </div>
 
       <EnquiryPanel />

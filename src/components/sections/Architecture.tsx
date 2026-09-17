@@ -3,35 +3,33 @@
 import { useRef } from "react";
 
 import { architecture } from "@/lib/content";
+import { Lines, Mark } from "@/components/ui/Type";
+import { Reveal } from "@/components/ui/Reveal";
 import { gsap } from "@/lib/gsap";
-import { Reveal, SectionMark } from "@/components/ui/Reveal";
 import { useIsomorphicLayoutEffect } from "@/lib/hooks/useIsomorphicLayoutEffect";
-import { useReducedMotion } from "@/lib/hooks/useMediaQuery";
 
 /**
- * Five principles, read sideways.
+ * Five decisions, read sideways.
  *
- * The page has been moving vertically for a long time by this point. Turning
- * the axis is the cheapest way to make a section feel like a different place,
- * and it suits the content — an elevation is something you read along.
- *
- * Under reduced motion, and on phones where a hijacked horizontal scroll is
- * genuinely unpleasant, the same list simply stacks.
+ * The page has been moving vertically for a long time by now, and turning the
+ * axis is the cheapest way to make a section feel like a different place. It
+ * also suits the content: an elevation is something you read along. On phones,
+ * where hijacking horizontal scroll is genuinely unpleasant, the same list
+ * simply stacks.
  */
 export function Architecture() {
   const sectionRef = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLUListElement>(null);
-  const reduced = useReducedMotion();
+  const trackRef = useRef<HTMLOListElement>(null);
 
   useIsomorphicLayoutEffect(() => {
     const section = sectionRef.current;
     const track = trackRef.current;
-    if (!section || !track || reduced) return;
+    if (!section || !track) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (!window.matchMedia("(min-width: 768px)").matches) return;
 
     const ctx = gsap.context(() => {
       const distance = () => track.scrollWidth - track.clientWidth;
-
       gsap.to(track, {
         x: () => -distance(),
         ease: "none",
@@ -48,79 +46,70 @@ export function Architecture() {
     }, section);
 
     return () => ctx.revert();
-  }, [reduced]);
+  }, []);
 
   return (
     <section
       ref={sectionRef}
       id="architecture"
       aria-labelledby="architecture-heading"
-      className="relative scroll-mt-24 overflow-hidden bg-paper py-[var(--space-section)]"
+      className="relative scroll-mt-0 overflow-hidden bg-bone py-[var(--space-breath)] text-on-light"
     >
-      <div className="shell">
-        <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+      <div className="bleed">
+        <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
           <div>
-            <Reveal mode="fade">
-              <SectionMark>{architecture.mark}</SectionMark>
+            <Reveal>
+              <Mark index={architecture.index} label={architecture.label} tone="light" />
             </Reveal>
-            <Reveal mode="mask" stagger={0.08} className="mt-7">
-              <h2
-                id="architecture-heading"
-                className="display-tight text-[length:var(--text-h2)] text-ink"
-              >
-                {architecture.heading.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </h2>
-            </Reveal>
+            <Lines
+              id="architecture-heading"
+              lines={architecture.heading}
+              size="display"
+              indent={[0, 2, 4]}
+              className="mt-10 text-on-light"
+            />
           </div>
-          <Reveal mode="up" delay={0.1}>
-            <p className="prose-arch text-slate md:text-right">{architecture.lede}</p>
+          <Reveal delay={0.1}>
+            <p className="t-sub max-w-[26ch] text-on-light-mute md:text-right">
+              {architecture.lede}
+            </p>
           </Reveal>
         </div>
       </div>
 
-      <div className="mt-16 md:mt-24">
-        <ul
-          ref={trackRef}
-          className="flex flex-col gap-px bg-rule md:flex-row md:gap-0 md:bg-transparent md:will-change-transform md:pl-[var(--gutter)]"
-        >
-          {architecture.principles.map((principle, index) => (
-            <li
-              key={principle.index}
-              className="group relative bg-paper px-[var(--gutter)] py-10 md:w-[clamp(19rem,26vw,25rem)] md:shrink-0 md:border-l md:border-rule md:px-10 md:py-14"
+      <ol
+        ref={trackRef}
+        className="mt-[clamp(4rem,10vh,8rem)] flex flex-col md:flex-row md:will-change-transform md:pl-[var(--gutter)]"
+      >
+        {architecture.principles.map((principle) => (
+          <li
+            key={principle.index}
+            className="group relative border-t border-line-light px-[var(--gutter)] py-12 md:w-[clamp(20rem,27vw,27rem)] md:shrink-0 md:border-t-0 md:border-l md:px-12 md:py-16"
+          >
+            <p className="t-label text-on-light-mute">{principle.index}</p>
+            {/* Sized to the column, not to the page. The display scale belongs
+                to the sections that carry the story; a card in a row of five
+                is a different register and reads as one when it is set as one. */}
+            <h3
+              className="mt-8 text-on-light"
+              style={{
+                fontSize: "clamp(1.75rem, 2.4vw, 2.75rem)",
+                lineHeight: 1.04,
+                letterSpacing: "-0.03em",
+              }}
             >
-              {/* The index sits behind the text at a scale that makes it a
-                  texture rather than a label. */}
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -right-2 top-4 select-none font-[family-name:var(--font-display)] text-[7rem] font-medium leading-none tracking-tighter text-ink/[0.045] md:text-[9rem]"
-              >
-                {principle.index}
-              </span>
+              {principle.title}
+            </h3>
+            <p className="t-body mt-7 max-w-[30ch] text-on-light-mute">{principle.body}</p>
 
-              <div className="relative">
-                <p className="mark text-forest">{principle.index}</p>
-                <h3 className="mt-6 display text-[length:var(--text-h3)] text-ink">
-                  {principle.title}
-                </h3>
-                <p className="mt-5 max-w-[34ch] text-[length:var(--text-body)] leading-relaxed text-slate">
-                  {principle.body}
-                </p>
-              </div>
-
-              <span
-                aria-hidden
-                className="mt-10 block h-px w-12 origin-left bg-ink/25 transition-transform duration-500 ease-(--ease-out-arch) group-hover:scale-x-[2.4]"
-                style={{ animationDelay: `${index * 40}ms` }}
-              />
-            </li>
-          ))}
-          <li aria-hidden className="hidden w-[var(--gutter)] shrink-0 bg-paper md:block" />
-        </ul>
-      </div>
+            <span
+              aria-hidden
+              className="mt-12 block h-px w-10 origin-left bg-line-light-strong transition-transform duration-500 ease-(--ease-out-arch) group-hover:scale-x-[2.6]"
+            />
+          </li>
+        ))}
+        <li aria-hidden className="hidden w-[var(--gutter)] shrink-0 md:block" />
+      </ol>
     </section>
   );
 }

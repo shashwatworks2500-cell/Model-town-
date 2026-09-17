@@ -1,34 +1,35 @@
 import { footer, nav, site } from "@/lib/content";
 
 /**
- * Footer, carrying the contact block and the disclosure.
+ * Four contact rows, the section list, and the disclosure. Nothing else.
  *
- * The disclosure is not fine print hidden at the bottom by accident — it is the
- * statement that the imagery is indicative and that nothing on the page is a
- * specification. On a project where the only real asset is a film, saying so
- * plainly is the difference between a brochure and a misrepresentation.
+ * The disclosure is not fine print by accident — it states that the imagery is
+ * indicative and that nothing on the page is a specification. On a project
+ * whose only real asset is a film, saying so plainly is the difference between
+ * a brochure and a misrepresentation.
  */
 export function SiteFooter() {
   return (
-    <footer className="bg-ink pb-10 pt-[var(--space-section-tight)] text-paper on-deep">
-      <div className="shell">
-        <div className="grid gap-y-12 border-t border-rule-deep pt-12 md:grid-cols-12 md:gap-x-10">
+    <footer className="bg-ink pb-10 text-on-dark">
+      <div className="bleed">
+        <div className="grid gap-y-14 border-t border-line-dark pt-14 md:grid-cols-12 md:gap-x-10">
           <div className="md:col-span-5">
-            <p className="display-tight text-[length:var(--text-h3)] text-paper">
-              {site.wordmark}
-            </p>
-            <p className="mark mt-4 text-paper/45">{site.tagline}</p>
+            <p className="t-heading text-bone">{site.wordmark}</p>
+            <p className="t-label mt-5 text-on-dark-mute">{site.tagline}</p>
           </div>
 
           <nav aria-label="Footer" className="md:col-span-3">
-            <h2 className="mark text-paper/40">Sections</h2>
-            <ul className="mt-2">
+            <h2 className="t-label text-on-dark-mute">Sections</h2>
+            <ul className="mt-5">
               {nav.map((item) => (
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
-                    className="inline-flex min-h-11 items-center text-[0.875rem] text-paper/75 transition-colors duration-(--dur) hover:text-paper"
+                    className="group inline-flex min-h-11 items-center gap-3 text-[0.875rem] text-on-dark-mute transition-colors duration-(--dur) hover:text-bone"
                   >
+                    <span className="t-label text-on-dark-faint transition-colors group-hover:text-on-dark-mute">
+                      {item.index}
+                    </span>
                     {item.label}
                   </a>
                 </li>
@@ -37,24 +38,24 @@ export function SiteFooter() {
           </nav>
 
           <div className="md:col-span-4">
-            <h2 className="mark text-paper/40">Contact</h2>
+            <h2 className="t-label text-on-dark-mute">Contact</h2>
             <dl className="mt-5 space-y-4">
               {footer.contact.map((row) => (
                 <div key={row.label}>
-                  <dt className="mark text-paper/40">{row.label}</dt>
-                  <dd className="mt-1 text-[0.875rem] text-paper/80">{row.value}</dd>
+                  <dt className="t-label text-on-dark-faint">{row.label}</dt>
+                  <dd className="mt-1.5 text-[0.875rem] text-on-dark">{row.value}</dd>
                 </div>
               ))}
             </dl>
           </div>
         </div>
 
-        <div className="mt-16 border-t border-rule-deep pt-8">
-          <p className="max-w-[80ch] text-[0.75rem] leading-relaxed text-paper/40">
+        <div className="mt-16 border-t border-line-dark pt-8">
+          <p className="max-w-[86ch] text-[0.75rem] leading-relaxed text-on-dark-mute">
             {footer.disclosure}
           </p>
-          <p className="mark mt-8 text-paper/30">
-            © {new Date().getFullYear()} {site.name}
+          <p className="t-label mt-8 text-on-dark-faint">
+            {site.name} — {site.year}
           </p>
         </div>
       </div>
