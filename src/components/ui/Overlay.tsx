@@ -114,7 +114,7 @@ export function Overlay({
         onClick={close}
         className={cn(
           "absolute inset-0 h-full w-full cursor-default",
-          tone === "deep" ? "bg-ink/70" : "bg-ink/40",
+          tone === "deep" ? "bg-ink/80" : "bg-ink/60",
         )}
       />
       <div
@@ -156,8 +156,8 @@ export function CloseButton({
       onClick={onClick}
       aria-label={label}
       className={cn(
-        "group inline-flex h-11 w-11 items-center justify-center rounded-(--radius-control) transition-colors duration-(--dur)",
-        tone === "deep" ? "text-paper hover:bg-paper/10" : "text-ink hover:bg-ink/8",
+        "group inline-flex h-11 w-11 items-center justify-center transition-colors duration-(--dur)",
+        tone === "deep" ? "text-on-dark hover:bg-bone/10" : "text-on-light hover:bg-ink/8",
       )}
     >
       <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" aria-hidden>

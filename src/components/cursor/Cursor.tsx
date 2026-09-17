@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 import { useFinePointer, useReducedMotion } from "@/lib/hooks/useMediaQuery";
 
-type Mode = "default" | "view" | "drag";
+type Mode = "default" | "view" | "cta" | "drag";
 
 /**
  * Desktop cursor.
@@ -90,27 +90,27 @@ export function Cursor() {
   // The system cursor stays until this one is proven to be tracking, so a
   // failure here can never leave someone without a pointer.
   useEffect(() => {
-    document.documentElement.classList.toggle("has-custom-cursor", enabled && visible);
-    return () => document.documentElement.classList.remove("has-custom-cursor");
+    document.documentElement.classList.toggle("has-cursor", enabled && visible);
+    return () => document.documentElement.classList.remove("has-cursor");
   }, [enabled, visible]);
 
   if (!enabled) return null;
 
-  const label = mode === "view" ? "View" : mode === "drag" ? "Drag" : null;
+  const label = mode === "view" ? "View" : mode === "cta" ? "Explore" : mode === "drag" ? "Drag" : null;
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-[100]">
       <div
         ref={ringRef}
         className={cn(
-          "fixed left-0 top-0 flex items-center justify-center rounded-full border border-paper/70 backdrop-invert-[0.08]",
+          "fixed left-0 top-0 flex items-center justify-center rounded-full border border-bone/70 backdrop-invert-[0.08]",
           "transition-[width,height,opacity,background-color] duration-(--dur) ease-(--ease-out-arch) will-change-transform",
           visible ? "opacity-100" : "opacity-0",
-          label ? "h-[4.5rem] w-[4.5rem] border-transparent bg-paper" : "h-8 w-8",
+          label ? "h-[4.25rem] w-[4.25rem] border-transparent bg-bone" : "h-8 w-8",
         )}
       >
         {label && (
-          <span className="mark text-[0.625rem] text-ink [animation:hero-fade_0.25s_var(--ease-out-arch)_both]">
+          <span className="t-label text-[0.625rem] text-ink [animation:hero-fade_0.25s_var(--ease-out-arch)_both]">
             {label}
           </span>
         )}
@@ -119,7 +119,7 @@ export function Cursor() {
       <div
         ref={dotRef}
         className={cn(
-          "fixed left-0 top-0 h-1.5 w-1.5 rounded-full bg-paper mix-blend-difference",
+          "fixed left-0 top-0 h-1.5 w-1.5 rounded-full bg-bone mix-blend-difference",
           "transition-opacity duration-(--dur) will-change-transform",
           visible && !label ? "opacity-100" : "opacity-0",
         )}

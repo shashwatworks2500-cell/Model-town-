@@ -6,7 +6,8 @@ import Image from "next/image";
 import { cn } from "@/lib/cn";
 import { gallery } from "@/lib/content";
 import { media } from "@/lib/media.generated";
-import { Reveal, SectionMark } from "@/components/ui/Reveal";
+import { Reveal } from "@/components/ui/Reveal";
+import { Lines, Mark } from "@/components/ui/Type";
 import { CloseButton, Overlay } from "@/components/ui/Overlay";
 
 type Item = (typeof gallery.rows)[number][number];
@@ -64,29 +65,24 @@ export function Gallery() {
   return (
     <section
       aria-labelledby="gallery-heading"
-      className="relative overflow-hidden bg-ink py-[var(--space-section)] text-paper on-deep"
+      className="relative overflow-hidden bg-ink py-[var(--space-section)] text-on-dark"
     >
       <div className="shell">
-        <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+        <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
           <div>
-            <Reveal mode="fade">
-              <SectionMark tone="deep">{gallery.mark}</SectionMark>
+            <Reveal>
+              <Mark index={gallery.index} label={gallery.label} />
             </Reveal>
-            <Reveal mode="mask" stagger={0.08} className="mt-7">
-              <h2
-                id="gallery-heading"
-                className="display-tight text-[length:var(--text-h2)] text-paper"
-              >
-                {gallery.heading.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </h2>
-            </Reveal>
+            <Lines
+              id="gallery-heading"
+              lines={gallery.heading}
+              size="heading"
+              indent={[0, 2]}
+              className="mt-9 text-bone"
+            />
           </div>
-          <Reveal mode="up" delay={0.1}>
-            <p className="prose-arch text-on-deep-muted md:text-right">{gallery.lede}</p>
+          <Reveal delay={0.1}>
+            <p className="t-sub max-w-[28ch] text-on-dark-mute md:text-right">{gallery.lede}</p>
           </Reveal>
         </div>
 
@@ -103,7 +99,7 @@ export function Gallery() {
                     key={item.id}
                     className={cn("min-w-0", START[item.start], SPAN[item.span], DROP[item.drop])}
                   >
-                    <Reveal mode="up">
+                    <Reveal>
                       <Plate item={item} index={position} onOpen={() => setOpen(position)} />
                     </Reveal>
                   </li>
@@ -126,7 +122,7 @@ function Plate({ item, index, onOpen }: { item: Item; index: number; onOpen: () 
       onClick={onOpen}
       data-cursor="view"
       aria-label={`Open ${item.label}: ${item.alt}`}
-      className="group relative block w-full overflow-hidden rounded-(--radius-frame) bg-ink-raised"
+      className="group relative block w-full overflow-hidden bg-ink-2"
       style={{ aspectRatio: item.ratio }}
     >
       <Image
@@ -140,10 +136,10 @@ function Plate({ item, index, onOpen }: { item: Item; index: number; onOpen: () 
       />
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-gradient-to-t from-ink/85 to-transparent p-4 opacity-0 transition-opacity duration-(--dur) group-hover:opacity-100 group-focus-visible:opacity-100"
+        className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-gradient-to-t from-ink/88 to-transparent p-4 opacity-0 transition-opacity duration-(--dur) group-hover:opacity-100 group-focus-visible:opacity-100"
       >
-        <span className="mark text-paper">{item.label}</span>
-        <span className="mark text-paper/70">{String(index + 1).padStart(2, "0")}</span>
+        <span className="t-label text-bone">{item.label}</span>
+        <span className="t-label text-on-dark-mute">{String(index + 1).padStart(2, "0")}</span>
       </span>
     </button>
   );
@@ -185,7 +181,7 @@ function Lightbox({
   return (
     <Overlay open={open} onClose={onClose} label={`Gallery — ${item.label}`} className="inset-0">
       <div
-        className="flex viewport-h flex-col bg-ink px-[var(--gutter)] py-[var(--gutter)] text-paper on-deep"
+        className="flex viewport-h flex-col bg-ink px-[var(--gutter)] py-[var(--gutter)] text-on-dark"
         onPointerDown={(event) => {
           startX.current = event.clientX;
         }}
@@ -197,10 +193,10 @@ function Lightbox({
         }}
       >
         <div className="flex shrink-0 items-center justify-between gap-4">
-          <p className="mark text-paper">
+          <p className="t-label text-bone">
             <span className="tabular-nums">{String(index + 1).padStart(2, "0")}</span>
-            <span className="mx-2 text-on-deep-muted">/</span>
-            <span className="tabular-nums text-on-deep-muted">
+            <span className="mx-2 text-on-dark-mute">/</span>
+            <span className="tabular-nums text-on-dark-mute">
               {String(items.length).padStart(2, "0")}
             </span>
             <span className="ml-4">{item.label}</span>
@@ -224,7 +220,7 @@ function Lightbox({
         </div>
 
         <div className="flex shrink-0 items-center justify-between gap-6">
-          <p className="mark max-w-[42ch] text-on-deep-muted">{item.alt}</p>
+          <p className="t-label max-w-[42ch] text-on-dark-mute">{item.alt}</p>
           <div className="flex shrink-0 gap-1">
             <StepButton direction={-1} onStep={onStep} />
             <StepButton direction={1} onStep={onStep} />
@@ -241,7 +237,7 @@ function StepButton({ direction, onStep }: { direction: -1 | 1; onStep: (d: numb
       type="button"
       onClick={() => onStep(direction)}
       aria-label={direction === 1 ? "Next image" : "Previous image"}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-(--radius-control) text-paper transition-colors duration-(--dur) hover:bg-paper/10"
+      className="inline-flex h-11 w-11 items-center justify-center text-bone transition-colors duration-(--dur) hover:bg-bone/10"
     >
       <svg
         viewBox="0 0 18 10"

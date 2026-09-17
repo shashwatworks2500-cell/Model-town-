@@ -4,7 +4,7 @@ import { useId, useRef, useState } from "react";
 
 import { cn } from "@/lib/cn";
 import { enquiry as copy, PLACEHOLDER } from "@/lib/content";
-import { ArrowGlyph, Button } from "@/components/ui/Button";
+import { Arrow, Button } from "@/components/ui/Button";
 import { CloseButton, Overlay } from "@/components/ui/Overlay";
 import { useEnquiry } from "@/components/enquiry/EnquiryContext";
 import {
@@ -109,9 +109,9 @@ export function EnquiryPanel() {
       label={copy.title}
       className="inset-x-0 bottom-0 top-0 ml-auto w-full max-w-[34rem] sm:inset-y-0"
     >
-      <div className="flex viewport-h flex-col overflow-y-auto overscroll-contain bg-paper" data-lenis-prevent>
-        <div className="flex shrink-0 items-center justify-between gap-4 border-b border-rule px-[var(--gutter)] py-4">
-          <p className="mark text-slate">{copy.title}</p>
+      <div className="flex viewport-h flex-col overflow-y-auto overscroll-contain bg-bone" data-lenis-prevent>
+        <div className="flex shrink-0 items-center justify-between gap-4 border-b border-line-light px-[var(--gutter)] py-4">
+          <p className="t-label text-on-light-mute">{copy.title}</p>
           <div className="-mr-2">
             <CloseButton onClick={closeEnquiry} tone="light" label="Close enquiry form" />
           </div>
@@ -121,8 +121,8 @@ export function EnquiryPanel() {
           <Success onClose={closeEnquiry} />
         ) : (
           <form noValidate onSubmit={submit} className="flex flex-1 flex-col px-[var(--gutter)] py-8">
-            <h2 className="display-tight text-[length:var(--text-h3)] text-ink">{copy.title}</h2>
-            <p className="mt-4 max-w-[42ch] text-[length:var(--text-body)] leading-relaxed text-slate">
+            <h2 className="t-heading text-on-light">{copy.title}</h2>
+            <p className="mt-4 max-w-[42ch] text-[length:var(--text-body)] leading-relaxed text-on-light-mute">
               {copy.lede}
             </p>
 
@@ -193,7 +193,7 @@ export function EnquiryPanel() {
 
             <div className="mt-9" aria-live="polite">
               {(status === "failed" || status === "unavailable") && (
-                <p className="rounded-(--radius-control) border border-rule-strong bg-stone/40 px-4 py-3 text-[0.875rem] leading-relaxed text-ink">
+                <p className="border border-line-light-strong bg-bone-3/50 px-4 py-3 text-[0.875rem] leading-relaxed text-on-light">
                   {status === "unavailable"
                     ? "This form is not connected to a destination yet, so nothing was sent. Please reach us directly using the details below."
                     : copy.error}
@@ -202,21 +202,21 @@ export function EnquiryPanel() {
             </div>
 
             <div className="mt-6 flex flex-col gap-5">
-              <Button type="submit" variant="solid" disabled={status === "sending"} className="justify-center">
+              <Button type="submit" variant="solid" tone="light" disabled={status === "sending"} className="justify-center">
                 {status === "sending" ? copy.submitting : copy.submit}
-                <ArrowGlyph />
+                <Arrow />
               </Button>
 
-              <div className="border-t border-rule pt-5">
-                <p className="mark text-slate/70">{copy.direct}</p>
+              <div className="border-t border-line-light pt-5">
+                <p className="t-label text-on-light-mute">{copy.direct}</p>
                 <dl className="mt-3 space-y-1.5">
                   <div className="flex gap-3">
-                    <dt className="mark w-20 shrink-0 text-slate/60">Phone</dt>
-                    <dd className="text-[0.875rem] text-ink">{PLACEHOLDER.phone}</dd>
+                    <dt className="t-label w-20 shrink-0 text-on-light-mute">Phone</dt>
+                    <dd className="text-[0.875rem] text-on-light">{PLACEHOLDER.phone}</dd>
                   </div>
                   <div className="flex gap-3">
-                    <dt className="mark w-20 shrink-0 text-slate/60">Email</dt>
-                    <dd className="text-[0.875rem] text-ink">{PLACEHOLDER.email}</dd>
+                    <dt className="t-label w-20 shrink-0 text-on-light-mute">Email</dt>
+                    <dd className="text-[0.875rem] text-on-light">{PLACEHOLDER.email}</dd>
                   </div>
                 </dl>
               </div>
@@ -231,15 +231,15 @@ export function EnquiryPanel() {
 function Success({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex flex-1 flex-col justify-center px-[var(--gutter)] py-14">
-      <p className="mark text-forest">Received</p>
-      <h2 className="mt-7 display-tight text-[length:var(--text-h2)] text-ink">
+      <p className="t-label text-on-light">Received</p>
+      <h2 className="mt-7 t-heading text-on-light">
         {copy.success.title}
       </h2>
-      <p className="mt-6 max-w-[34ch] text-[length:var(--text-lead)] font-[family-name:var(--font-text)] leading-relaxed text-slate">
+      <p className="mt-6 max-w-[34ch] text-[length:var(--text-sub)] t-serif leading-relaxed text-on-light-mute">
         {copy.success.body}
       </p>
       <div className="mt-12">
-        <Button variant="outline" onClick={onClose}>
+        <Button variant="framed" tone="light" onClick={onClose}>
           Close
         </Button>
       </div>
@@ -289,18 +289,18 @@ function Field({
     "aria-invalid": error ? (true as const) : undefined,
     "aria-describedby": error ? errorId : undefined,
     className: cn(
-      "w-full border-b bg-transparent px-0 py-3 text-[length:var(--text-body)] text-ink",
-      "placeholder:text-slate/45 transition-colors duration-(--dur) outline-none",
+      "w-full border-b bg-transparent px-0 py-3 text-[length:var(--text-body)] text-on-light",
+      "placeholder:text-on-light-mute/70 transition-colors duration-(--dur) outline-none",
       "focus-visible:outline-none focus:border-ink",
-      error ? "border-forest" : "border-rule-strong",
+      error ? "border-on-light" : "border-line-light-strong",
     ),
   };
 
   return (
     <div>
-      <label htmlFor={id} className="mark block text-slate">
+      <label htmlFor={id} className="t-label block text-on-light-mute">
         {label}
-        {required && <span className="ml-1.5 text-forest">*</span>}
+        {required && <span className="ml-1.5 text-on-light">*</span>}
       </label>
 
       {multiline ? (
@@ -324,7 +324,7 @@ function Field({
       )}
 
       {error && (
-        <p id={errorId} className="mt-2 text-[0.8125rem] text-forest">
+        <p id={errorId} className="mt-2 text-[0.8125rem] text-on-light">
           {error}
         </p>
       )}
@@ -341,7 +341,7 @@ function Preference({
 }) {
   return (
     <fieldset>
-      <legend className="mark text-slate">{copy.fields.preference.label}</legend>
+      <legend className="t-label text-on-light-mute">{copy.fields.preference.label}</legend>
       <div className="mt-3 flex flex-wrap gap-2">
         {CONTACT_PREFERENCES.map((option) => {
           const label = copy.preferences.find((p) => p.value === option)?.label ?? option;
@@ -350,11 +350,11 @@ function Preference({
             <label
               key={option}
               className={cn(
-                "mark cursor-pointer rounded-(--radius-control) border px-4 py-3 transition-colors duration-(--dur)",
-                "has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-forest",
+                "t-label cursor-pointer border px-4 py-3 transition-colors duration-(--dur)",
+                "has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-on-light",
                 selected
                   ? "border-ink bg-ink text-paper"
-                  : "border-rule-strong text-slate hover:border-ink hover:text-ink",
+                  : "border-line-light-strong text-on-light-mute hover:border-ink hover:text-on-light",
               )}
             >
               <input
