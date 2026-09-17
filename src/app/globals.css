@@ -1,80 +1,75 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   MODEL TOWN — design system
+   MODEL TOWN — art direction
 
-   The palette is sampled from the supplied film rather than invented: the
-   cleared ground, the hazy sky, the asphalt of the first roads, the tree line
-   at the boundary, and the warm light inside the finished windows. Everything
-   on the page belongs to that world.
+   One idea governs the whole system: the interface is achromatic, and the film
+   supplies every colour on the page. Warm charcoal to warm bone, nothing else.
+   Hierarchy is carried by scale, weight and space — never by hue. It is also
+   what keeps this away from the gold-and-gradient register that property sites
+   fall into.
+
+   One typeface. Schibsted Grotesk is narrow enough to hold a 13rem headline
+   without splaying, and has enough vertical stress to read as architectural
+   rather than as a system font. Instrument Serif appears exactly twice, where
+   the page needs a human voice against all that structure.
    ========================================================================== */
 
 @theme {
-  /* --- primitives: sampled ------------------------------------------------ */
-  --color-paper: #f4f0e8; /* hazy sky at the horizon */
-  --color-paper-raised: #ece5d8; /* cleared ground, lit */
-  --color-stone: #d3c9b8; /* ground in shade */
-  --color-clay: #b9977d; /* graded earth */
-  --color-ink: #17150f; /* asphalt, deepest */
-  --color-ink-raised: #23201a;
-  --color-ink-soft: #322e26;
-  --color-slate: #55504a; /* structure in shadow */
-  --color-forest: #46503c; /* boundary tree line */
-  --color-forest-soft: #6d7a5e;
-  --color-ember: #c07a3c; /* window glow at dusk */
+  /* --- surface ------------------------------------------------------------ */
+  --color-ink: #0c0c0b; /* architectural charcoal — the page */
+  --color-ink-2: #131312; /* raised dark surface */
+  --color-ink-3: #1c1c1a;
+  --color-bone: #edeae4; /* warm off-white */
+  --color-bone-2: #e3dfd7;
+  --color-bone-3: #d6d1c7;
 
-  /* --- semantic ----------------------------------------------------------- */
-  --color-surface: var(--color-paper);
-  --color-surface-alt: var(--color-paper-raised);
-  --color-on-surface: var(--color-ink);
-  --color-on-surface-muted: var(--color-slate);
-  --color-rule: color-mix(in oklab, var(--color-ink) 16%, transparent);
-  --color-rule-strong: color-mix(in oklab, var(--color-ink) 32%, transparent);
+  /* --- text --------------------------------------------------------------- */
+  --color-on-dark: #edeae4;
+  --color-on-dark-mute: #938e84; /* 5.2:1 on ink */
+  /* The quietest tier that still clears AA on ink. It was two stops darker
+     and failed at 3.6:1 wherever it carried real content — a field label is
+     not decoration just because it is small. Over photography it still needs
+     a scrim; on ink it now stands on its own. */
+  --color-on-dark-faint: #837f76; /* 4.9:1 on ink */
+  --color-on-light: #0c0c0b;
+  --color-on-light-mute: #59554e; /* 6.9:1 on bone */
 
-  --color-surface-deep: var(--color-ink);
-  --color-on-deep: #efe9dd;
-  --color-on-deep-muted: #a49c8d;
-  --color-rule-deep: color-mix(in oklab, #efe9dd 18%, transparent);
+  /* --- rules -------------------------------------------------------------- */
+  --color-line-dark: color-mix(in oklab, #edeae4 14%, transparent);
+  --color-line-dark-strong: color-mix(in oklab, #edeae4 28%, transparent);
+  --color-line-light: color-mix(in oklab, #0c0c0b 14%, transparent);
+  --color-line-light-strong: color-mix(in oklab, #0c0c0b 30%, transparent);
 
   /* --- type --------------------------------------------------------------- */
-  --font-display: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
-  --font-text: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-schibsted), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
 
-  /* Modular scale, 1.26. Fluid between 375px and 1600px. */
-  --text-mark: 0.6875rem;
-  --text-caption: 0.8125rem;
-  --text-body: clamp(1rem, 0.96rem + 0.18vw, 1.0625rem);
-  --text-lead: clamp(1.125rem, 1.02rem + 0.44vw, 1.4375rem);
-  --text-h4: clamp(1.25rem, 1.1rem + 0.64vw, 1.75rem);
-  --text-h3: clamp(1.625rem, 1.36rem + 1.13vw, 2.75rem);
-  --text-h2: clamp(2.25rem, 1.62rem + 2.7vw, 4.75rem);
-  --text-h1: clamp(3rem, 1.6rem + 5.95vw, 8.5rem);
-  --text-hero: clamp(3.75rem, 1.2rem + 10.9vw, 13rem);
+  /*
+   * Scale. Not a ratio applied blindly — each step exists because a specific
+   * kind of statement needed it, and the gaps between them are deliberately
+   * large so nothing sits ambiguously between two sizes.
+   */
+  --text-hero: clamp(3.75rem, 13vw, 13rem); /* MODEL TOWN, once */
+  --text-display: clamp(2.75rem, 8.6vw, 8.5rem); /* major statements */
+  --text-heading: clamp(2rem, 4.6vw, 4.5rem); /* section headings */
+  --text-sub: clamp(1.125rem, 1.1rem + 0.9vw, 1.875rem); /* lead lines */
+  --text-body: clamp(1rem, 0.96rem + 0.22vw, 1.125rem);
+  --text-small: 0.8125rem;
+  --text-label: 0.6875rem; /* metadata — the editorial voice */
 
-  /* --- spacing: 4px base -------------------------------------------------- */
+  /* --- spacing: architectural ---------------------------------------------- */
   --spacing: 0.25rem;
+  --space-section: clamp(7rem, 15vw, 17rem);
+  --space-breath: clamp(4rem, 9vw, 10rem);
+  --gutter: clamp(1.25rem, 0.5rem + 3.2vw, 4.5rem);
 
-  /* Section rhythm tightens on phones, opens up on desktop. */
-  --space-section: clamp(5.5rem, 3rem + 10vw, 11rem);
-  --space-section-tight: clamp(3.5rem, 2rem + 6vw, 7rem);
-  --gutter: clamp(1.25rem, 0.6rem + 2.8vw, 3.5rem);
-
-  /* --- radius: varies by role, never uniform ------------------------------ */
-  --radius-hairline: 1px;
-  --radius-control: 2px;
-  --radius-frame: 3px;
-  --radius-pill: 999px;
-
-  /* --- motion ------------------------------------------------------------- */
+  /* --- motion -------------------------------------------------------------- */
   --ease-out-arch: cubic-bezier(0.16, 0.84, 0.32, 1);
-  --ease-in-arch: cubic-bezier(0.7, 0, 0.84, 0);
   --ease-arch: cubic-bezier(0.62, 0.05, 0.2, 0.98);
-  --dur-fast: 180ms;
-  --dur: 260ms;
-  --dur-slow: 620ms;
-
-  --shadow-lift: 0 1px 2px color-mix(in oklab, var(--color-ink) 8%, transparent),
-    0 12px 32px -18px color-mix(in oklab, var(--color-ink) 42%, transparent);
+  --dur-fast: 200ms;
+  --dur: 320ms;
+  --dur-slow: 720ms;
 }
 
 /* --------------------------------------------------------------------------
@@ -90,14 +85,10 @@
 
   html {
     -webkit-text-size-adjust: 100%;
-    scroll-behavior: smooth;
+    background-color: var(--color-ink);
   }
 
-  /* Lenis drives scrolling itself; native smooth scroll would fight it. */
-  html.lenis,
-  html.lenis body {
-    height: auto;
-  }
+  /* Lenis owns scrolling; native smooth scroll would fight it. */
   html.lenis {
     scroll-behavior: auto;
   }
@@ -110,25 +101,24 @@
 
   body {
     margin: 0;
-    background-color: var(--color-surface);
-    color: var(--color-on-surface);
-    font-family: var(--font-display);
+    background-color: var(--color-ink);
+    color: var(--color-on-dark);
+    font-family: var(--font-sans);
     font-size: var(--text-body);
-    line-height: 1.6;
+    font-weight: 400;
+    line-height: 1.55;
+    letter-spacing: -0.005em;
     font-synthesis-weight: none;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    /* A horizontal scrollbar must never appear at any width. */
     overflow-x: clip;
   }
 
   h1,
   h2,
-  h3,
-  h4 {
+  h3 {
     margin: 0;
-    font-weight: 500;
-    text-wrap: balance;
+    font-weight: 400;
   }
 
   p {
@@ -149,71 +139,80 @@
     color: inherit;
   }
 
-  /* One focus treatment, everywhere, always visible. */
   :focus-visible {
-    outline: 2px solid var(--color-forest);
-    outline-offset: 3px;
-    border-radius: var(--radius-control);
-  }
-
-  [data-theme="deep"] :focus-visible,
-  .on-deep :focus-visible {
-    outline-color: var(--color-paper);
+    outline: 1px solid currentColor;
+    outline-offset: 4px;
   }
 
   ::selection {
-    background-color: color-mix(in oklab, var(--color-forest) 26%, transparent);
-    color: var(--color-ink);
+    background-color: #edeae4;
+    color: #0c0c0b;
   }
 }
 
 /* --------------------------------------------------------------------------
    Typographic registers
 
-   Two voices. `.display` is the architectural one — tight, uppercase-capable,
-   negative tracking at scale. `.prose-arch` is the human one, set in the serif
-   and reserved for the reflective passages.
+   Four voices, and nothing between them. Tracking is set per register rather
+   than globally: display type needs to be pulled tight to read as one mass,
+   and metadata needs to be opened up to read as a rule rather than a word.
    -------------------------------------------------------------------------- */
 
-@utility display {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-stretch: 112%;
-  letter-spacing: -0.028em;
-  line-height: 0.92;
+@utility t-hero {
+  font-size: var(--text-hero);
+  line-height: 0.82;
+  letter-spacing: -0.048em;
+  font-weight: 400;
   text-transform: uppercase;
 }
 
-@utility display-tight {
-  font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 0.9;
+@utility t-display {
+  font-size: var(--text-display);
+  line-height: 0.86;
+  letter-spacing: -0.042em;
+  font-weight: 400;
+  text-transform: uppercase;
 }
 
-@utility mark {
-  font-family: var(--font-display);
-  font-size: var(--text-mark);
-  font-weight: 500;
-  letter-spacing: 0.22em;
+@utility t-heading {
+  font-size: var(--text-heading);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+@utility t-sub {
+  font-size: var(--text-sub);
+  line-height: 1.32;
+  letter-spacing: -0.018em;
+  font-weight: 400;
+}
+
+@utility t-body {
+  font-size: var(--text-body);
+  line-height: 1.62;
+  letter-spacing: -0.004em;
+  max-width: 38ch;
+}
+
+/** Metadata. The editorial spine of the whole site. */
+@utility t-label {
+  font-size: var(--text-label);
   line-height: 1;
+  letter-spacing: 0.2em;
+  font-weight: 500;
   text-transform: uppercase;
   font-variant-numeric: tabular-nums;
 }
 
-@utility prose-arch {
-  font-family: var(--font-text);
-  font-size: var(--text-lead);
-  font-weight: 350;
-  font-optical-sizing: auto;
-  line-height: 1.62;
-  letter-spacing: -0.005em;
-  /* 60–75 characters. */
-  max-width: 34ch;
-}
-
-@utility measure {
-  max-width: 62ch;
+/** The second voice. Used twice in the entire site, and only where the page
+    needs to sound like a person rather than a plan. */
+@utility t-serif {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  text-transform: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -222,37 +221,82 @@
 
 @utility shell {
   width: 100%;
-  max-width: 96rem;
+  max-width: 108rem;
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
 
-@utility rule-t {
-  border-top: 1px solid var(--color-rule);
+/** Full-bleed, edge to edge — no container, no max width. */
+@utility bleed {
+  width: 100%;
+  padding-inline: var(--gutter);
+}
+
+@utility viewport-h {
+  height: 100vh;
+  height: 100svh;
+}
+
+@utility viewport-min-h {
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+/** Vertical metadata running up the left or right edge. */
+/**
+ * Stepped headline indents.
+ *
+ * The indent is measured in `ch` so a step always relates to the letterforms
+ * rather than to a pixel guess. Below the smallest layout the page is designed
+ * for, the display scale has reached the floor of its clamp while the column
+ * keeps narrowing — the type stops shrinking, the room does not, and a stepped
+ * line runs off the edge. The step tapers there instead, which keeps the
+ * composition and keeps the last word.
+ */
+:root {
+  --indent-step: 1;
+}
+
+@media (max-width: 380px) {
+  :root {
+    --indent-step: 0.4;
+  }
+}
+
+/**
+ * The clipping box for a line reveal.
+ *
+ * It has to hide a line sitting below its own baseline while never touching
+ * what sits either side of it — an indented or optically-overhung line must be
+ * free to run past the column it is measured in. `overflow: hidden` clips both
+ * axes and silently amputates the word; clipping the bottom edge alone does
+ * only the job the reveal actually needs. The top is released far enough for
+ * ascenders and accents, which negative leading pushes outside the box.
+ */
+@utility line-clip {
+  clip-path: inset(-0.4em -100vw 0 -100vw);
+}
+
+@utility rail-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
 
 /* --------------------------------------------------------------------------
-   Reveal primitives
+   Reveals
 
-   Sections opt in with `data-reveal`. GSAP clears these once played. If
-   JavaScript never runs, the `no-js` guard below keeps everything visible —
-   content must never depend on animation.
+   Content is visible by default and hidden only once script confirms it can
+   animate it back. Nothing on this page depends on an animation having run.
    -------------------------------------------------------------------------- */
 
 @layer components {
-  [data-reveal] {
+  html.js [data-reveal] {
     opacity: 0;
     will-change: opacity, transform;
   }
-
-  [data-reveal="up"] {
-    transform: translate3d(0, 1.75rem, 0);
+  html.js [data-reveal="rise"] {
+    transform: translate3d(0, 2rem, 0);
   }
-
-  [data-reveal="mask"] > * {
-    display: block;
-  }
-
   html.no-js [data-reveal],
   html.reduced-motion [data-reveal] {
     opacity: 1;
@@ -261,17 +305,101 @@
 }
 
 /* --------------------------------------------------------------------------
-   Reduced motion
+   Scrims. Warm black, so overlaying the film never greys it out.
+   -------------------------------------------------------------------------- */
 
-   Not a stub: parallax, the scrub, the cursor and every entrance are replaced
-   with a static, fully legible page.
+/* Sized so the header clears contrast against the brightest frame, then falls
+   away fast. Any taller and it starts grading the picture instead of backing
+   the type. */
+@utility scrim-t {
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-ink) 86%, transparent) 0%,
+    color-mix(in srgb, var(--color-ink) 76%, transparent) 40%,
+    color-mix(in srgb, var(--color-ink) 22%, transparent) 76%,
+    transparent 100%
+  );
+}
+
+@utility scrim-b {
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-ink) 94%, transparent) 0%,
+    color-mix(in srgb, var(--color-ink) 88%, transparent) 26%,
+    color-mix(in srgb, var(--color-ink) 50%, transparent) 54%,
+    color-mix(in srgb, var(--color-ink) 12%, transparent) 78%,
+    transparent 96%
+  );
+}
+
+/* Barely there. Enough to stop the frame edges glowing, not enough to grade
+   the picture — the film supplies the only colour on the page and crushing it
+   defeats the whole art direction. */
+@utility vignette {
+  background-image: radial-gradient(
+    135% 105% at 50% 46%,
+    transparent 58%,
+    color-mix(in srgb, var(--color-ink) 20%, transparent) 100%
+  );
+}
+
+/* --------------------------------------------------------------------------
+   Entrance keyframes — CSS, so the opening does not wait on hydration.
+   -------------------------------------------------------------------------- */
+
+@keyframes rise-in {
+  from {
+    transform: translate3d(0, 108%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.75rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-only {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes line-drop {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion — a real static path, not a stub.
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   *,
   *::before,
   *::after {
@@ -295,123 +423,19 @@
 }
 
 /* --------------------------------------------------------------------------
-   Viewport height with a real fallback chain. `svh` keeps the hero from
-   resizing as mobile browser chrome shows and hides mid-scroll, which would
-   otherwise re-trigger layout during the scrub.
-   -------------------------------------------------------------------------- */
-
-@utility viewport-h {
-  height: 100vh;
-  height: 100svh;
-}
-
-@utility viewport-min-h {
-  min-height: 100vh;
-  min-height: 100svh;
-}
-
-/* Cinematic scrims over the film. Warm black, so the overlay stays inside the
-   film's own palette instead of greying it out. */
-@utility scrim-bottom {
-  background-image: linear-gradient(
-    to top,
-    color-mix(in srgb, var(--color-ink) 86%, transparent) 0%,
-    color-mix(in srgb, var(--color-ink) 72%, transparent) 20%,
-    color-mix(in srgb, var(--color-ink) 40%, transparent) 48%,
-    color-mix(in srgb, var(--color-ink) 12%, transparent) 72%,
-    transparent 90%
-  );
-}
-
-/* The film ends on a white sky, and paper-coloured navigation over that fails
-   the contrast floor outright. This band is sized so the header text clears
-   4.5:1 against the brightest frame in the sequence, then falls away quickly —
-   over the opening frame, which is dark tree line, it is invisible. */
-@utility scrim-top {
-  background-image: linear-gradient(
-    to bottom,
-    color-mix(in srgb, var(--color-ink) 86%, transparent) 0%,
-    color-mix(in srgb, var(--color-ink) 82%, transparent) 32%,
-    color-mix(in srgb, var(--color-ink) 44%, transparent) 62%,
-    color-mix(in srgb, var(--color-ink) 12%, transparent) 82%,
-    transparent 100%
-  );
-}
-
-@utility vignette {
-  background-image: radial-gradient(
-    120% 90% at 50% 45%,
-    transparent 42%,
-    color-mix(in srgb, var(--color-ink) 26%, transparent) 100%
-  );
-}
-
-/* --------------------------------------------------------------------------
-   Hero entrance
-
-   Runs once on load, in CSS rather than GSAP, so the opening moment does not
-   wait on the film sequence or on JavaScript hydration.
-   -------------------------------------------------------------------------- */
-
-@keyframes hero-rise {
-  from {
-    transform: translate3d(0, 105%, 0);
-  }
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes hero-fade {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 1rem, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes hero-drop {
-  0% {
-    transform: translateY(-100%);
-  }
-  55%,
-  100% {
-    transform: translateY(400%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [class*="animation:hero"],
-  [style*="hero-"] {
-    animation: none !important;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Custom cursor
-
-   The system cursor is only hidden once the custom one has proven it is
-   tracking — the class is added from script after the first pointer move, so a
-   failure can never leave someone without a pointer. Text selection and form
-   fields keep their native cursors, because replacing those costs usability
-   for nothing.
+   Cursor — hidden only once the custom one is proven to be tracking.
    -------------------------------------------------------------------------- */
 
 @layer base {
-  html.has-custom-cursor,
-  html.has-custom-cursor a,
-  html.has-custom-cursor button,
-  html.has-custom-cursor [role="button"] {
+  html.has-cursor,
+  html.has-cursor a,
+  html.has-cursor button,
+  html.has-cursor [role="button"] {
     cursor: none;
   }
-
-  html.has-custom-cursor input,
-  html.has-custom-cursor textarea,
-  html.has-custom-cursor select,
-  html.has-custom-cursor label {
+  html.has-cursor input,
+  html.has-cursor textarea,
+  html.has-cursor label {
     cursor: auto;
   }
 }

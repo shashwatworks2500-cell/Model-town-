@@ -1,0 +1,69 @@
+{
+  "film": {
+    "duration": 10.042,
+    "cuts": {
+      "lg": {
+        "count": 121,
+        "width": 1280,
+        "height": 720
+      },
+      "sm": {
+        "count": 81,
+        "width": 480,
+        "height": 720
+      }
+    }
+  },
+  "blur": {
+    "arrival": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADQAQCdASoQAAkAA4BaJQBOgCHZ+hm6EADiBk3/0/FJhF0xwnqB/qM5lonq0pIb7dm4Ors9Ya6bZ7CYkXRosLTbYhOrkAAA",
+    "arrival-sm": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoLABAAA4BaJQBOgCHcyi8iE0AA/rI6qRkQ8U3kSkZeiy5JPx2YoDBhsxuCoKBaoYgUKWC94CJEAXWupRXWkKu2Ip4DJzYoAAA=",
+    "land": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADwAQCdASoQAAkAA4BaJYgCdADxMJ4TbyAA/t2RYxd1BJVtxQ4eljN6w31r8yWp1PRhNJbZZQDAgAAA",
+    "plan": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAADwAQCdASoQAAkAA4BaJQBOgCPuEErThaAA/tHLRbR1s02PMSKzdvEHySv5pm8HWdZQDAgAAAA=",
+    "structure": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAACwAQCdASoQAAkAA4BaJQBOgCHYHcHwAP21piQQg5n/bkva0nLY/vu/ph1zD1SsdDEJVOGLVJEYaAkUxgAAAA==",
+    "welcome": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAAAQAgCdASoLABAAA4BaJQBOgCIaVdEvqalQAP7F8KL40gIi2vUWfDPSCjs45YiNGsBMNb7ZsIJzEjI7tsY06XXJ1RfSAAAA",
+    "community": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADwAQCdASoLABAAA4BaJQBOgCL6KHhy/AAA/oeWLW/RGQK2yJlko+n6oAZUV2N2rsSuu64/czRWbppJnie/oc0Nr2ORr4nMX2DEKZ0Qf5jAWyBiABb9FJvy5QAAAA==",
+    "leisure": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAAAQAgCdASoLABAAA4BaJZACdAEOu9kVAfQAAP7oTCr+mhT94mGlazJePaWTN+aE4hPd17KBYHO2PG143GuSBrYHYbkNsZRZ/NA9uC4WASMN3Bg5UAA=",
+    "interior": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAQAgCdASoLABAAA4BaJagCdAEO9EHZDemAAP7tlyhzCMmbn0KBgAWb3o/latRQ1ooJUEIyMy71wHtxSmNjBgqciJ12pJdH6c2ap1CPti9RiFuqqdiGDAf+A7QAAA=="
+  },
+  "size": {
+    "arrival": {
+      "width": 1280,
+      "height": 720
+    },
+    "arrival-sm": {
+      "width": 480,
+      "height": 720
+    },
+    "land": {
+      "width": 1280,
+      "height": 720
+    },
+    "plan": {
+      "width": 1280,
+      "height": 720
+    },
+    "structure": {
+      "width": 1280,
+      "height": 720
+    },
+    "welcome": {
+      "width": 800,
+      "height": 1200
+    },
+    "community": {
+      "width": 735,
+      "height": 1103
+    },
+    "leisure": {
+      "width": 1200,
+      "height": 1800
+    },
+    "interior": {
+      "width": 1000,
+      "height": 1500
+    }
+  },
+  "notes": {
+    "welcome": "watermarked stock comp — replace before launch"
+  }
+}

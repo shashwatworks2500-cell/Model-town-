@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Model Town">
+  <!-- The site plan, reduced to the one thing that defines it: the avenue and
+       the two ranks of plots either side. Same figure the film draws on the
+       ground before anything is built. -->
+  <rect width="32" height="32" fill="#17150f"/>
+  <g stroke="#f4f0e8" stroke-width="2.2" stroke-linecap="square">
+    <path d="M16 5v22"/>
+    <path d="M6 12h20"/>
+    <path d="M6 21h20"/>
+  </g>
+</svg>
